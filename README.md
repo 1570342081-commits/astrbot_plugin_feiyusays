@@ -1,6 +1,7 @@
 # astrbot_plugin_feiyusays
 大肥鱼有话说
 高度ai开发，感谢大肥鱼
+
 ## 简介
 
 收到形如「肥鱼说 + 一句话」的消息时，机器人把这句话渲染进模板图片（自带 Q 版猫耳女仆角色 + 思想气泡）的对话气泡中，然后以图片形式回复。支持在 **WebUI 中像 PPT 文字框一样拖拽绘制文字区域**，所见即所得。
@@ -24,7 +25,7 @@
 
 ### 方式一：下载 zip
 
-1. 下载 [astrbot_plugin_feiyusays.zip](https://github.com/你的用户名/astrbot_plugin_feiyusays/releases)（或本仓库 `Download ZIP` 后解压）
+1. 下载 [astrbot_plugin_feiyusays.zip](https://github.com/1570342081-commits/astrbot_plugin_feiyusays/releases)（或本仓库 `Download ZIP` 后解压）
 2. 将 `astrbot_plugin_feiyusays` 文件夹放入 `AstrBot/data/plugins/` 目录
 3. 重启 AstrBot（或在 WebUI 插件页启用该插件），依赖 `pillow` 会在加载时自动安装
 
@@ -119,3 +120,7 @@ astrbot_plugin_feiyusays/
 
 **Q：emoji 显示异常？**
 Pillow 默认不渲染 emoji，会显示为空白/方块，属已知限制。
+
+## License
+
+[MIT](LICENSE)

@@ -5,5 +5,5 @@ short_desc: 把文字渲染进模板图片的气泡框
 desc: 当消息以"肥鱼说"开头时，把后面的文字自动换行并渲染到模板图片的对话气泡中，然后回复图片。
 version: 1.0.0
 author: pigule
-repo: https://github.com/pigule/astrbot_plugin_feiyusays
+repo: https://github.com/1570342081-commits/astrbot_plugin_feiyusays
 astrbot_version: ">=3.4.28"
