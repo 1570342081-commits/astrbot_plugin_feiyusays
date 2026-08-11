@@ -1,0 +1,79 @@
+{
+  "command_keyword": {
+    "description": "指令词，消息以此开头时触发",
+    "type": "string",
+    "default": "肥鱼说"
+  },
+  "bubble_x1": {
+    "description": "气泡内容区左上角 X 坐标",
+    "type": "int",
+    "default": 200
+  },
+  "bubble_y1": {
+    "description": "气泡内容区左上角 Y 坐标",
+    "type": "int",
+    "default": 200
+  },
+  "bubble_x2": {
+    "description": "气泡内容区右下角 X 坐标",
+    "type": "int",
+    "default": 450
+  },
+  "bubble_y2": {
+    "description": "气泡内容区右下角 Y 坐标",
+    "type": "int",
+    "default": 600
+  },
+  "base_font_size": {
+    "description": "首选字号（像素）",
+    "type": "int",
+    "default": 48
+  },
+  "min_font_size": {
+    "description": "最小字号（像素），文字快要放不下时才缩小字号，低于此字号截断文本",
+    "type": "int",
+    "default": 24
+  },
+  "line_spacing_ratio": {
+    "description": "行间距倍率",
+    "type": "float",
+    "default": 1.25
+  },
+  "max_text_len": {
+    "description": "单条消息最大字符数，超出部分截断",
+    "type": "int",
+    "default": 200
+  },
+  "font_path": {
+    "description": "自定义字体文件路径，留空自动选择微软雅黑",
+    "type": "string",
+    "default": ""
+  },
+  "text_color": {
+    "description": "文字颜色（十六进制，如 #000000）",
+    "type": "string",
+    "default": "#000000"
+  },
+  "text_align_h": {
+    "description": "水平对齐",
+    "type": "string",
+    "default": "center",
+    "options": ["left", "center", "right"]
+  },
+  "text_align_v": {
+    "description": "垂直对齐",
+    "type": "string",
+    "default": "middle",
+    "options": ["top", "middle", "bottom"]
+  },
+  "box_padding": {
+    "description": "文字框内边距（像素）",
+    "type": "int",
+    "default": 10
+  },
+  "wrap_text": {
+    "description": "文字自动换行（关闭后单行显示，超出部分截断）",
+    "type": "bool",
+    "default": true
+  }
+}

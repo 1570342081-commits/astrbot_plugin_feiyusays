@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>肥鱼说 - 气泡预览</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --border: #d9d9d9;
+        --bg2: #f7f7f7;
+        --text: #1f1f1f;
+        --accent: #1677ff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --border: #4a4a4a;
+          --bg2: #262626;
+          --text: #e8e8e8;
+          --accent: #4096ff;
+        }
+        body {
+          background: #1a1a1a;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+          "Microsoft YaHei", sans-serif;
+        color: var(--text);
+        margin: 0 auto;
+        max-width: 760px;
+        padding: 20px;
+      }
+      h2 {
+        margin-top: 0;
+      }
+      textarea {
+        width: 100%;
+        min-height: 72px;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg2);
+        color: inherit;
+        resize: vertical;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        margin: 14px 0;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .field label {
+        font-size: 12px;
+        opacity: 0.75;
+      }
+      .field input {
+        padding: 6px 8px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg2);
+        color: inherit;
+        font-size: 13px;
+      }
+      .field input[type="color"] {
+        padding: 2px;
+        height: 32px;
+      }
+      .field select {
+        padding: 6px 8px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg2);
+        color: inherit;
+        font-size: 13px;
+      }
+      .check {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        margin-top: 12px;
+        cursor: pointer;
+      }
+      .check input {
+        accent-color: var(--accent);
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      button {
+        padding: 8px 16px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg2);
+        color: inherit;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      button.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .preview {
+        margin-top: 16px;
+        text-align: center;
+      }
+      .preview-wrap {
+        position: relative;
+        display: inline-block;
+        max-width: 100%;
+        line-height: 0;
+        cursor: crosshair;
+      }
+      .preview-wrap img {
+        max-width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+      }
+      .textbox {
+        position: absolute;
+        border: 2px dashed #ff4d4f;
+        background: rgba(255, 77, 79, 0.08);
+        cursor: move;
+        display: none;
+        box-sizing: border-box;
+      }
+      .textbox .handle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border: 2px solid #ff4d4f;
+        border-radius: 2px;
+        box-sizing: border-box;
+      }
+      .handle.h-nw {
+        top: -6px;
+        left: -6px;
+        cursor: nwse-resize;
+      }
+      .handle.h-ne {
+        top: -6px;
+        right: -6px;
+        cursor: nesw-resize;
+      }
+      .handle.h-sw {
+        bottom: -6px;
+        left: -6px;
+        cursor: nesw-resize;
+      }
+      .handle.h-se {
+        bottom: -6px;
+        right: -6px;
+        cursor: nwse-resize;
+      }
+      .hint {
+        margin-top: 8px;
+        font-size: 12px;
+        opacity: 0.6;
+        white-space: pre-wrap;
+      }
+      #status {
+        font-size: 12px;
+        white-space: pre-wrap;
+        min-height: 1em;
+      }
+      #status.error {
+        color: #e5484d;
+      }
+      #status.ok {
+        color: #30a46c;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>肥鱼说 - 气泡预览</h2>
+    <textarea id="text" placeholder="输入要渲染的文字，例如：今天也要加油鸭！"></textarea>
+    <div class="grid">
+      <div class="field">
+        <label for="x1">左上角 X</label>
+        <input id="x1" type="number" />
+      </div>
+      <div class="field">
+        <label for="y1">左上角 Y</label>
+        <input id="y1" type="number" />
+      </div>
+      <div class="field">
+        <label for="x2">右下角 X</label>
+        <input id="x2" type="number" />
+      </div>
+      <div class="field">
+        <label for="y2">右下角 Y</label>
+        <input id="y2" type="number" />
+      </div>
+      <div class="field">
+        <label for="base_font">首选字号</label>
+        <input id="base_font" type="number" />
+      </div>
+      <div class="field">
+        <label for="min_font">最小字号</label>
+        <input id="min_font" type="number" />
+      </div>
+      <div class="field">
+        <label for="line_spacing">行距倍率</label>
+        <input id="line_spacing" type="number" step="0.05" />
+      </div>
+      <div class="field">
+        <label for="text_color">文字颜色</label>
+        <input id="text_color" type="color" />
+      </div>
+      <div class="field">
+        <label for="align_h">水平对齐</label>
+        <select id="align_h">
+          <option value="left">左对齐</option>
+          <option value="center">居中</option>
+          <option value="right">右对齐</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="align_v">垂直对齐</label>
+        <select id="align_v">
+          <option value="top">顶部</option>
+          <option value="middle">居中</option>
+          <option value="bottom">底部</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="padding">框内边距</label>
+        <input id="padding" type="number" min="0" />
+      </div>
+      <div class="field">
+        <label for="font_path">字体路径（留空自动）</label>
+        <input id="font_path" type="text" />
+      </div>
+    </div>
+    <label class="check">
+      <input id="wrap" type="checkbox" checked />
+      文字自动换行（关闭后单行显示）
+    </label>
+    <div class="actions">
+      <button id="load">加载当前配置</button>
+      <button id="redraw">重新绘制范围</button>
+      <button id="preview" class="primary">渲染预览</button>
+      <button id="save">保存配置</button>
+    </div>
+    <p id="status"></p>
+    <div class="preview">
+      <div class="preview-wrap" id="preview-wrap">
+        <img id="result" alt="预览图" hidden />
+        <div class="textbox" id="box">
+          <span class="handle h-nw"></span>
+          <span class="handle h-ne"></span>
+          <span class="handle h-sw"></span>
+          <span class="handle h-se"></span>
+        </div>
+      </div>
+    </div>
+    <p class="hint">
+      说明：模板图加载后即可操作。点「重新绘制范围」后在图上按下鼠标拖拽出新文字框，或直接拖动红色文字框移动、拖四角缩放（同 PPT 文字框）；坐标输入框为高级选项，与图形同步。字号优先用首选字号，文字快要放不下时才缩小字号；缩到最小字号仍放不下则截断加省略号。配置保存后即时生效。坐标为像素，以模板左上角为原点（模板 1254×1254）。
+    </p>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
